@@ -24,6 +24,7 @@ class BankAccountTest {
     @Test
     void isEmailValidTest(){
         //EP
+        System.out.println(BankAccount.isEmailValid( "a@b.com"));
         assertTrue(BankAccount.isEmailValid( "a@b.com"));
         //EP
         assertTrue(BankAccount.isEmailValid("a.b@c.com"));
