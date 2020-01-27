@@ -15,13 +15,29 @@ class BankAccountTest {
 
     @Test
     void withdrawTest()  throws InsufficientFundsException, IllegalArgumentException {
+        //Only need double precision up to .01 (cents)
+
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
-
         assertEquals(100, bankAccount.getBalance());
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(0));
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-100));
+        //above three tests are just equivalence
+
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(200.01)); //Boundary - insuficient funds
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300)); //Equivalence - insufficient funds
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(0)); //boundary - amount not greater than 0.01
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-100)); //equivalence - amount not greater than 0.01
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-0.01)); //equivalence - amount not greater than 0.01, small negative
+
+
+        bankAccount.withdraw(0.01); assertEquals(99.99, bankAccount.getBalance()); //boundary - lowest possible withdrawal
+        bankAccount.withdraw(20.99); assertEquals(79.00, bankAccount.getBalance()); //equivalence, withdrawal with decimals
+        bankAccount.withdraw(1); assertEquals(78.00, bankAccount.getBalance()); //equivalence, smallest non-decimal withdrawal
+        bankAccount.withdraw(79); assertEquals(0, bankAccount.getBalance()); //boundary, amount == balance
+
+
+
+
     }
 
     @Test
