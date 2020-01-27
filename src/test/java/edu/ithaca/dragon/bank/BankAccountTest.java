@@ -7,14 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class BankAccountTest {
 
     @Test
-    void getBalanceTest() {
+    void getBalanceTest() throws InsufficientFundsException, IllegalArgumentException{
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
 
-        assertEquals(200, bankAccount.getBalance());
+        assertEquals(200, bankAccount.getBalance()); //boundary, balance  is correct
+        bankAccount.withdraw(50); assertEquals(150, bankAccount.getBalance()); //equivalence, balance is correct after withdrawal
+        bankAccount.withdraw(0.01); assertEquals(149.9, bankAccount.getBalance()); //boundary, balance is correct after smallest withdrawal
+
     }
 
     @Test
-    void withdrawTest()  throws InsufficientFundsException, IllegalArgumentException {
+    void withdrawTest() throws InsufficientFundsException, IllegalArgumentException {
         //Only need double precision up to .01 (cents)
 
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
@@ -22,7 +25,7 @@ class BankAccountTest {
         assertEquals(100, bankAccount.getBalance());
         //above three tests are just equivalence
 
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(200.01)); //Boundary - insuficient funds
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(200.01)); //Boundary - insufficient funds
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300)); //Equivalence - insufficient funds
 
         assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(0)); //boundary - amount not greater than 0.01
