@@ -12,7 +12,7 @@ class BankAccountTest {
 
         assertEquals(200, bankAccount.getBalance()); //boundary, balance  is correct
         bankAccount.withdraw(50); assertEquals(150, bankAccount.getBalance()); //equivalence, balance is correct after withdrawal
-        bankAccount.withdraw(0.01); assertEquals(149.9, bankAccount.getBalance()); //boundary, balance is correct after smallest withdrawal
+        bankAccount.withdraw(0.01); assertEquals(149.99, bankAccount.getBalance()); //boundary, balance is correct after smallest withdrawal
 
     }
 
@@ -37,10 +37,6 @@ class BankAccountTest {
         bankAccount.withdraw(20.99); assertEquals(79.00, bankAccount.getBalance()); //equivalence, withdrawal with decimals
         bankAccount.withdraw(1); assertEquals(78.00, bankAccount.getBalance()); //equivalence, smallest non-decimal withdrawal
         bankAccount.withdraw(79); assertEquals(0, bankAccount.getBalance()); //boundary, amount == balance
-
-
-
-
     }
 
     @Test
@@ -58,6 +54,8 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid("a#@b.com")); //Boundary - special symbols
         assertFalse(BankAccount.isEmailValid("a@b%.com")); //Boundary - special symbols
         assertFalse(BankAccount.isEmailValid("?a#@b&%*.com")); //Equivalence - special symbols
+        assertFalse(BankAccount.isEmailValid("a@b.c")); //boundary - fewer than two chars after .
+        assertTrue(BankAccount.isEmailValid("a@b.io")); //boundary - only two chars after .
     }
 
     @Test
