@@ -36,7 +36,7 @@ class BankAccountTest {
         bankAccount.withdraw(0.01); assertEquals(99.99, bankAccount.getBalance()); //boundary - lowest possible withdrawal
         bankAccount.withdraw(20.99); assertEquals(79.00, bankAccount.getBalance()); //equivalence, withdrawal with decimals
         bankAccount.withdraw(1); assertEquals(78.00, bankAccount.getBalance()); //equivalence, smallest non-decimal withdrawal
-        bankAccount.withdraw(79); assertEquals(0, bankAccount.getBalance()); //boundary, amount == balance
+        bankAccount.withdraw(78); assertEquals(0, bankAccount.getBalance()); //boundary, amount == balance
     }
 
     @Test
