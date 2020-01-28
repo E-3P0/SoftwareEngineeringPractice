@@ -11,10 +11,15 @@ public class BankAccount {
     public BankAccount(String email, double startingBalance){
         if (isEmailValid(email)){
             this.email = email;
-            this.balance = startingBalance;
         }
         else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
+        }
+        if (startingBalance >= 0){
+            this.balance = startingBalance;
+        }
+        else{
+            throw new IllegalArgumentException("Starting balance: " + startingBalance + "is invalid, cannot create account");
         }
     }
 
@@ -32,27 +37,28 @@ public class BankAccount {
      * @throws InsufficientFundsException if amount is larger than balance
      */
     public void withdraw (double amount) throws InsufficientFundsException, IllegalArgumentException {
-        if (amount < 0.01){
-            throw new IllegalArgumentException("Withdraw amount: " + amount + " is invalid, cannot withdraw");
-        }
-        if (amount <= balance){
-            balance -= amount;
-        }
-        else {
-            throw new InsufficientFundsException("Not enough money, cannot withdraw: " + amount);
-        }
-        /*
-        if (amount < 0) { balance -= amount; }
+            //Elias's definition
             String amountStr = Double.toString(amount);
             amountStr = amountStr.substring(amountStr.indexOf('.') + 1);
-            if (amount <= 0 || amountStr.length() > 2) { //if amount is negative or the amount has more than two decimal places
+
+            if (amount <= 0 || amountStr.length() > 2) { //if amount is negative||0 or the amount has more than two decimal places
                 throw new IllegalArgumentException("Invalid withdraw amount, cannot withdraw");
-            } else if (amount > getBalance()) {
+            }
+            else if (amount > getBalance()) {
                 throw new InsufficientFundsException("Invalid amount, cannot withdraw more than current balance");
             }
             balance -= amount;
-            */
 
+        //Ioan's definition
+//        if (amount < 0.01){
+//            throw new IllegalArgumentException("Withdraw amount: " + amount + " is invalid, cannot withdraw");
+//        }
+//        if (amount <= balance){
+//            balance -= amount;
+//        }
+//        else {
+//            throw new InsufficientFundsException("Not enough money, cannot withdraw: " + amount);
+//        }
     }
 
 

@@ -37,6 +37,21 @@ class BankAccountTest {
         bankAccount.withdraw(20.99); assertEquals(79.00, bankAccount.getBalance()); //equivalence, withdrawal with decimals
         bankAccount.withdraw(1); assertEquals(78.00, bankAccount.getBalance()); //equivalence, smallest non-decimal withdrawal
         bankAccount.withdraw(78); assertEquals(0, bankAccount.getBalance()); //boundary, amount == balance
+
+        BankAccount bankAccount2 = new BankAccount("a@b.com", 200);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.withdraw(10.001)); //boundary double has more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad withdrawal
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.withdraw(10.111)); //Equivalence - more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad withdrawal
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.withdraw(-10.001)); //boundary negative and more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad withdrawal
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.withdraw(200.0001)); //boundary, > balance and > two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad withdrawal
+
+
     }
 
     @Test
@@ -66,6 +81,7 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance());
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("a@b.com",-1));
     }
 
 }
