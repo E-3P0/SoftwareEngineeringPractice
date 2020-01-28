@@ -31,17 +31,28 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative or 0
      * @throws InsufficientFundsException if amount is larger than balance
      */
-    public void withdraw (double amount) throws InsufficientFundsException, IllegalArgumentException  {
-        if (amount <= 0){
-            throw new IllegalArgumentException("Withdraw amount: " + amount + " is invalid, cannot withdraw");
-        }
-        if (amount <= balance){
+    public void withdraw (double amount) throws InsufficientFundsException, IllegalArgumentException {
+//        if (amount <= 0){
+//            throw new IllegalArgumentException("Withdraw amount: " + amount + " is invalid, cannot withdraw");
+//        }
+//        if (amount <= balance){
+//            balance -= amount;
+//        }
+//        else {
+//            throw new InsufficientFundsException("Not enough money, cannot withdraw: " + amount);
+//        }
+//        if (amount < 0) { balance -= amount; }
+            String amountStr = Double.toString(amount);
+            amountStr = amountStr.substring(amountStr.indexOf('.') + 1);
+            if (amount <= 0 || amountStr.length() > 2) { //if amount is negative or the amount has more than two decimal places
+                throw new IllegalArgumentException("Invalid withdraw amount, cannot withdraw");
+            } else if (amount > getBalance()) {
+                throw new InsufficientFundsException("Invalid amount, cannot withdraw more than current balance");
+            }
             balance -= amount;
-        }
-        else {
-            throw new InsufficientFundsException("Not enough money, cannot withdraw: " + amount);
-        }
+
     }
+
 
 
     public static boolean isEmailValid(String email){
