@@ -7,6 +7,8 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/**/misc.xml
+.idea/**/compiler.xml
 
 # Generated files
 .idea/**/contentModel.xml
@@ -96,3 +98,5 @@ Temporary Items
 .apdisk
 
 target/
+
+pom.xml
