@@ -56,11 +56,31 @@ public class BankAccount {
         if(stringArray[0].length()<1){
             return false;
         }
-        else if(stringArray[1].indexOf('.') == -1){
-            return false;
+        else{
+            for (int i=0; i<stringArray[0].length(); i++){
+                if ((Character.isDigit(stringArray[0].charAt(i))) || (Character.isLetter(stringArray[0].charAt(i))) || (stringArray[0].charAt(i)=='_') || (stringArray[0].charAt(i)=='.') || (stringArray[0].charAt(i)=='-')){
+                    if((stringArray[0].charAt(i)=='_') || (stringArray[0].charAt(i)=='.') || (stringArray[0].charAt(i)=='-')){
+                        if((i+1)>=stringArray[0].length()){
+                            return false;
+                        }
+                        else{
+                            if (stringArray[0].charAt(i+1)=='_' || stringArray[0].charAt(i+1)=='.' || stringArray[0].charAt(i+1)=='-'){
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
         }
+
         //if there is nothing in the domain return false.
         if(stringArray[1].length()<1){
+            return false;
+        }
+        else if(stringArray[1].indexOf('.') == -1){
             return false;
         }
         else {
