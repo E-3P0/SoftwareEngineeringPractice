@@ -71,6 +71,45 @@ class BankAccountTest {
 
         assertThrows(IllegalArgumentException.class, () -> bankAccount2.deposit(-0.01)); //border negative amount
         assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad deposit
+    }
+    
+    @Test
+    void transferTest() throws IllegalArgumentException {
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        BankAccount transferAccount = new BankAccount("c@d.com", 0);
+
+        bankAccount.transfer(0, transferAccount); //border, transferring nothing, valid amt
+        assertEquals(200, bankAccount.getBalance());
+        assertEquals(0, transferAccount.getBalance());
+
+        bankAccount.transfer(0.01, transferAccount); //border, lowest possible valid transfer
+        assertEquals(199.99, bankAccount.getBalance());
+        assertEquals(0.01, transferAccount.getBalance());
+
+        bankAccount.transfer(100, transferAccount); //middle, valid transfer
+        assertEquals(99.99, bankAccount.getBalance());
+        assertEquals(100, transferAccount.getBalance());
+
+        BankAccount bankAccount2 = new BankAccount("a@b.com", 200);
+        BankAccount transferAccount2 = new BankAccount("a@b.com", 0);
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.transfer(0.001, transferAccount2)); //border, double has more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad transfer
+        assertEquals(0, transferAccount2.getBalance()); //making sure balance is unchanged from bad transfer
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.transfer(10.111111, transferAccount2)); //Middle, - more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad transfer
+        assertEquals(0, transferAccount2.getBalance()); //making sure balance is unchanged from bad transfer
+
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.transfer(-10.001, transferAccount2)); //border, negative and more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad transfer
+        assertEquals(0, transferAccount2.getBalance()); //making sure balance is unchanged from bad transfer
+
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.transfer(-0.01, transferAccount2)); //border, negative amount
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad transfer
+        assertEquals(0, transferAccount2.getBalance()); //making sure balance is unchanged from bad transfer
 
     }
 

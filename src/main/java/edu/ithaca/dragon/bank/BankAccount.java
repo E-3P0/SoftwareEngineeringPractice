@@ -70,6 +70,15 @@ public class BankAccount {
         else{
             throw new IllegalArgumentException("Invalid amount: " + amount + ", could not deposit.");
         }
+    }
+
+    /**
+     * Transfers money from this account to a different one
+     * @param amount (double) amount of money to transfer
+     * @param transferAccount (BankAccount obj) account receiving the transfer amount
+     * @throws IllegalArgumentException if amount is invalid
+     */
+    public void transfer (double amount, BankAccount transferAccount) throws IllegalArgumentException {
 
     }
 
