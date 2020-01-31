@@ -15,7 +15,7 @@ public class BankAccount {
         else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
         }
-        if (startingBalance >= 0){
+        if (isAmountValid(startingBalance)){
             this.balance = startingBalance;
         }
         else{
@@ -37,11 +37,8 @@ public class BankAccount {
      * @throws InsufficientFundsException if amount is larger than balance
      */
     public void withdraw (double amount) throws InsufficientFundsException, IllegalArgumentException {
-            //Elias's definition
-            String amountStr = Double.toString(amount);
-            amountStr = amountStr.substring(amountStr.indexOf('.') + 1);
-
-            if (amount <= 0 || amountStr.length() > 2) { //if amount is negative||0 or the amount has more than two decimal places
+            //Elias's implementation
+            if (!(isAmountValid(amount)) || amount <= 0) { //if amount is invalid or 0
                 throw new IllegalArgumentException("Invalid withdraw amount, cannot withdraw");
             }
             else if (amount > getBalance()) {
@@ -49,7 +46,7 @@ public class BankAccount {
             }
             balance -= amount;
 
-        //Ioan's definition
+        //Ioan's implementation
 //        if (amount < 0.01){
 //            throw new IllegalArgumentException("Withdraw amount: " + amount + " is invalid, cannot withdraw");
 //        }
