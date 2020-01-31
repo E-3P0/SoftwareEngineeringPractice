@@ -88,7 +88,7 @@ class BankAccountTest {
 
         bankAccount.transfer(100, transferAccount); //middle, valid transfer
         assertEquals(99.99, bankAccount.getBalance());
-        assertEquals(100, transferAccount.getBalance());
+        assertEquals(100.01, transferAccount.getBalance());
 
         BankAccount bankAccount2 = new BankAccount("a@b.com", 200);
         BankAccount transferAccount2 = new BankAccount("a@b.com", 0);

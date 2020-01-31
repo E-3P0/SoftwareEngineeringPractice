@@ -79,7 +79,25 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is invalid
      */
     public void transfer (double amount, BankAccount transferAccount) throws IllegalArgumentException {
+        if (isAmountValid(amount)){
+            balance-=amount;
+            if (!isAmountValid(balance)){ //Java is dumb and is giving me rounding errors so I just chop off the extra digits with strings
+                                          //I tried many ways without strings but they all rounded it badly giving an incorrect result
+                String balanceStr = Double.toString(balance);
+                balanceStr = balanceStr.substring(0, balanceStr.indexOf('.')); //essentially cutting balance down to an int
 
+                String decimalStr = balanceStr.substring(balanceStr.indexOf('.') + 1); //the decimal part of balance
+                decimalStr = decimalStr.substring(0, 2); //cutting off all digits past 2 decimal places
+
+                balanceStr+="."+decimalStr; //Putting the parts back together into a double
+                balance = Double.parseDouble(balanceStr); //Parsing the string back into balance as double
+
+            }
+            transferAccount.deposit(amount);
+        }
+        else{
+            throw new IllegalArgumentException("Invalid amount: " + amount + ", could not transfer.");
+        }
     }
 
 
