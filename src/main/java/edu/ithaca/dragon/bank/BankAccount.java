@@ -64,6 +64,12 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is invalid
      */
     public void deposit (double amount) throws IllegalArgumentException {
+        if (isAmountValid(amount)){
+            balance+=amount;
+        }
+        else{
+            throw new IllegalArgumentException("Invalid amount: " + amount + ", could not deposit.");
+        }
 
     }
 
