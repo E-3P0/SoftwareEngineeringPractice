@@ -172,7 +172,10 @@ public class BankAccount {
      * @return a boolean, true if amount is valid, false otherwise
      */
     public static boolean isAmountValid(double amount){
-        return false;
+        String amountStr = Double.toString(amount);
+        amountStr = amountStr.substring(amountStr.indexOf('.') + 1);
+
+        return amountStr.length() < 3 && amount >= 0; //returns true if >=0 and no more than two decimal places otherwise false
     }
 
 

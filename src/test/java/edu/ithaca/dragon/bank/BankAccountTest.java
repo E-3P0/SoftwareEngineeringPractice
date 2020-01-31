@@ -86,14 +86,13 @@ class BankAccountTest {
 
     @Test
     void isAmountValidTest(){
-
         assertTrue(BankAccount.isAmountValid(0.01)); //Border, lowest possible valid nonzero amount
         assertTrue(BankAccount.isAmountValid(0)); //Border, lowest possible valid amount, no decimal places
         assertTrue(BankAccount.isAmountValid(0.0)); //Border, lowest possible valid amount but with a decimal place
         assertTrue(BankAccount.isAmountValid(100.1)); //Middle, normal valid value with 1 decimal place
         assertTrue(BankAccount.isAmountValid(123456)); //Middle, large valid value with no decimal place
+        assertTrue(BankAccount.isAmountValid(-0.0)); //Border, signed zeros are actually still 0 and are valid
 
-        assertFalse(BankAccount.isAmountValid(-0.0)); //Border, negative zero, weird but it's a thing and should be invalid
         assertFalse(BankAccount.isAmountValid(-0.01)); //Border, lowest possible invalid amount besides -0.0
         assertFalse(BankAccount.isAmountValid(-1)); //Border, negative and no decimal places
         assertFalse(BankAccount.isAmountValid(-666)); //Middle, negative, no decimal places
