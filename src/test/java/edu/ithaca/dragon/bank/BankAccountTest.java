@@ -50,7 +50,27 @@ class BankAccountTest {
 
         assertThrows(IllegalArgumentException.class, () -> bankAccount2.withdraw(200.0001)); //border, > balance and > two decimal places
         assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad withdrawal
+    }
+    @Test
+    void depositTest() throws IllegalArgumentException {
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        
+        bankAccount.deposit(0); assertEquals(200, bankAccount.getBalance()); //border depositing nothing, valid amt
+        bankAccount.deposit(0.01); assertEquals(200.01, bankAccount.getBalance()); //border lowest possible valid deposit
+        bankAccount.deposit(100); assertEquals(300.01, bankAccount.getBalance()); //middle valid deposit
 
+        BankAccount bankAccount2 = new BankAccount("a@b.com", 200);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.deposit(0.001)); //border double has more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad deposit
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.deposit(10.111111)); //Middle - more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad deposit
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.deposit(-10.001)); //border negative and more than two decimal places
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad deposit
+
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.deposit(-0.01)); //border negative amount
+        assertEquals(200, bankAccount2.getBalance()); //making sure balance is unchanged from bad deposit
 
     }
 

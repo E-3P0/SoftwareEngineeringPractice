@@ -58,6 +58,14 @@ public class BankAccount {
 //        }
     }
 
+    /**
+     * Deposits money into bank account balance
+     * @param amount (double) amount of money to deposit into account
+     * @throws IllegalArgumentException if amount is invalid
+     */
+    public void deposit (double amount) throws IllegalArgumentException {
+
+    }
 
 
     public static boolean isEmailValid(String email){
