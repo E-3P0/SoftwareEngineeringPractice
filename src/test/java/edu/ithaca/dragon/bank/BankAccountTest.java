@@ -80,8 +80,11 @@ class BankAccountTest {
         assertEquals("a@b.com", bankAccount.getEmail());
         assertEquals(200, bankAccount.getBalance());
         //check for exception thrown correctly
-        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
-        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("a@b.com",-1));
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100)); //border invalid email
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("a@b.com",-1)); //border negative amount
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("a@b.com",-0.001)); //border more than 2 decimal places, negative
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("a@b.com",0.001)); //border more than 2 decimal places, positive
+
     }
 
     @Test
