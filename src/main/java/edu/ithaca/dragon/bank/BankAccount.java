@@ -94,7 +94,6 @@ public class BankAccount {
                 }
             }
         }
-
         //if there is nothing in the domain return false.
         if(stringArray[1].length()<1){
             return false;
@@ -106,7 +105,6 @@ public class BankAccount {
             String[] domainArray = stringArray[1].split("\\.", 2);
 
             //if either side of the domain is less than 1 then return false.
-
             if (domainArray[0].length() < 1) {
                 return false;
             }
@@ -145,7 +143,6 @@ public class BankAccount {
                 //checking the second part of the domain.
                 for (int i = 0; i < domainArray[1].length() - 1; i++) {
                     //are the characters valid
-
                     if ((Character.isDigit(domainArray[1].charAt(i))) || (Character.isLetter(domainArray[1].charAt(i))) || (domainArray[1].charAt(i) == '-')) {
                         if (domainArray[1].charAt(i) == '-') {
                             if ((i + 1) > domainArray[1].length() - 1) {
@@ -164,10 +161,18 @@ public class BankAccount {
                 }
             }
         }
-
         //If nothing returned false up to this point, the email must be valid, therefor return true.
         return true;
 
+    }
+
+    /**
+     * @param amount (double) amount of money to check if it is valid
+     * The amount is invalid if it is negative or has more than 2 decimal places
+     * @return a boolean, true if amount is valid, false otherwise
+     */
+    public static boolean isAmountValid(double amount){
+        return false;
     }
 
 
